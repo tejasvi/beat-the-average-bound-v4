@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software or certificate, please cite the paper."
+title: "A certified upper bound for the beat the average game"
+authors:
+  - family-names: Tomar
+    given-names: Tejasvi Singh
+    orcid: "https://orcid.org/0000-0003-4668-3639"
+license: Apache-2.0
+repository-code: "https://github.com/tejasvi/beat-the-average-bound-v4"
+doi: 10.5281/zenodo.23548814
+preferred-citation:
+  type: article
+  title: "A certified upper bound for the beat the average game"
+  authors:
+    - family-names: Tomar
+      given-names: Tejasvi Singh
+      orcid: "https://orcid.org/0000-0003-4668-3639"
+  doi: 10.5281/zenodo.23548813
+  year: 2026

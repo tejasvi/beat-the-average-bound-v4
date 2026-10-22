@@ -1,0 +1,60 @@
+k=4: 3 realizable models (BFS over single flips), 9 LPs, 7 exact Gordan certificates for rejected flips, max density 1/2 = 0.500000, 0.7 s
+k=5: 30 realizable models (BFS over single flips), 485 LPs, 456 exact Gordan certificates for rejected flips, max density 1/2 = 0.500000, 9.0 s
+k=6: 1290 realizable models (BFS over single flips), 66406 LPs, 65117 exact Gordan certificates for rejected flips, max density 7/15 = 0.466667, 825.7 s
+level 1: frontier 1 -> candidates 8 -> new cells 8; found 9, certified infeasible 0, filtered 132, 0 s
+level 2: frontier 8 -> candidates 32 -> new cells 31; found 40, certified infeasible 1, filtered 1186, 1 s
+level 3: frontier 31 -> candidates 97 -> new cells 89; found 129, certified infeasible 9, filtered 5250, 2 s
+level 4: frontier 89 -> candidates 240 -> new cells 210; found 339, certified infeasible 39, filtered 16884, 3 s
+level 5: frontier 210 -> candidates 513 -> new cells 430; found 769, certified infeasible 122, filtered 44246, 5 s
+level 6: frontier 430 -> candidates 1005 -> new cells 784; found 1553, certified infeasible 343, filtered 100076, 7 s
+level 7: frontier 784 -> candidates 1804 -> new cells 1307; found 2860, certified infeasible 840, filtered 201575, 9 s
+level 8: frontier 1307 -> candidates 3008 -> new cells 2010; found 4870, certified infeasible 1838, filtered 370273, 12 s
+level 9: frontier 2010 -> candidates 4670 -> new cells 2912; found 7782, certified infeasible 3596, filtered 628997, 15 s
+level 10: frontier 2912 -> candidates 6865 -> new cells 3936; found 11718, certified infeasible 6525, filtered 1002833, 20 s
+level 11: frontier 3936 -> candidates 9436 -> new cells 5006; found 16724, certified infeasible 10955, filtered 1507267, 27 s
+level 12: frontier 5006 -> candidates 12139 -> new cells 6072; found 22796, certified infeasible 17022, filtered 2147911, 35 s
+level 13: frontier 6072 -> candidates 14818 -> new cells 7076; found 29872, certified infeasible 24764, filtered 2923882, 43 s
+level 14: frontier 7076 -> candidates 17360 -> new cells 7937; found 37809, certified infeasible 34187, filtered 3827321, 49 s
+level 15: frontier 7937 -> candidates 19349 -> new cells 8675; found 46484, certified infeasible 44861, filtered 4839952, 60 s
+level 16: frontier 8675 -> candidates 20744 -> new cells 9175; found 55659, certified infeasible 56430, filtered 5946881, 74 s
+level 17: frontier 9175 -> candidates 21457 -> new cells 9495; found 65154, certified infeasible 68392, filtered 7117921, 85 s
+level 18: frontier 9495 -> candidates 21258 -> new cells 9473; found 74627, certified infeasible 80177, filtered 8330867, 94 s
+level 19: frontier 9473 -> candidates 20289 -> new cells 9239; found 83866, certified infeasible 91227, filtered 9542192, 103 s
+level 20: frontier 9239 -> candidates 18879 -> new cells 8791; found 92657, certified infeasible 101315, filtered 10725179, 116 s
+level 21: frontier 8791 -> candidates 17241 -> new cells 8206; found 100863, certified infeasible 110350, filtered 11852289, 130 s
+level 22: frontier 8206 -> candidates 15303 -> new cells 7435; found 108298, certified infeasible 118218, filtered 12906141, 137 s
+level 23: frontier 7435 -> candidates 13232 -> new cells 6578; found 114876, certified infeasible 124872, filtered 13862420, 145 s
+level 24: frontier 6578 -> candidates 11011 -> new cells 5619; found 120495, certified infeasible 130264, filtered 14710205, 153 s
+level 25: frontier 5619 -> candidates 8757 -> new cells 4657; found 125152, certified infeasible 134364, filtered 15435693, 161 s
+level 26: frontier 4657 -> candidates 6667 -> new cells 3700; found 128852, certified infeasible 137331, filtered 16038412, 171 s
+level 27: frontier 3700 -> candidates 4854 -> new cells 2806; found 131658, certified infeasible 139379, filtered 16518365, 185 s
+level 28: frontier 2806 -> candidates 3313 -> new cells 2012; found 133670, certified infeasible 140680, filtered 16883360, 190 s
+level 29: frontier 2012 -> candidates 2131 -> new cells 1368; found 135038, certified infeasible 141443, filtered 17145769, 195 s
+level 30: frontier 1368 -> candidates 1278 -> new cells 851; found 135889, certified infeasible 141870, filtered 17324852, 199 s
+level 31: frontier 851 -> candidates 696 -> new cells 494; found 136383, certified infeasible 142072, filtered 17436630, 201 s
+level 32: frontier 494 -> candidates 324 -> new cells 254; found 136637, certified infeasible 142142, filtered 17501827, 203 s
+level 33: frontier 254 -> candidates 128 -> new cells 113; found 136750, certified infeasible 142157, filtered 17535493, 205 s
+level 34: frontier 113 -> candidates 40 -> new cells 39; found 136789, certified infeasible 142158, filtered 17550562, 206 s
+level 35: frontier 39 -> candidates 11 -> new cells 11; found 136800, certified infeasible 142158, filtered 17555791, 206 s
+level 36: frontier 11 -> candidates 0 -> new cells 0; found 136800, certified infeasible 142158, filtered 17557288, 206 s
+k=7: 136800 realizable models; 278957 LPs; 142158 exact Gordan certificates; 17557288 flips rejected by the 6-restriction filter; 206 s
+K=6, 6 blocks, sizes [3, 18, 12, 51, 63, 36], claimed 201273/500000 (0 s setup)
+max over 1290 witness configurations: 7838001769327109693986883165568029/19471113219505603606989361234575360 = 0.402545128312 (#1289, witness [1048576, 2097152, 17825792, 26214400, 30408704, 31457280])
+top: ['0.402545128312', '0.402545128143', '0.402545128030', '0.402545127946'] min: 0.207700  within 1e-8 of max: 16
+claimed 201273/500000 = 0.402546 PASS (1 s)
+K=7, 35 blocks, sizes [12, 18, 51, 63, 36, 158, 116, 188, 157, 211, 95, 283, 242, 171, 185, 74, 36, 193, 97, 31, 237, 232, 121, 181, 228, 53, 48, 88, 65, 58, 120, 40, 57, 67, 92], claimed 10019/25000 (3 s setup)
+max over 136800 witness configurations: 9818726293070812608221592204264795151735/24500330418307569369362971735087311224832 = 0.400758933673 (#126383, witness [1048576, 2097152, 3145728, 23068672, 33554432, 38797312, 39845888])
+top: ['0.400758933673', '0.400758933657', '0.400758933650', '0.400758933606'] min: 0.127494  within 1e-8 of max: 23
+claimed 10019/25000 = 0.40076 PASS (20 s)
+k=4: independent 3 witnesses, 3 distinct patterns; check639 3 patterns; EQUAL (0 only independent, 0 only check639)
+RESULT: AGREE
+k=5: independent 30 witnesses, 30 distinct patterns; check639 30 patterns; EQUAL (0 only independent, 0 only check639)
+RESULT: AGREE
+k=6: independent 1290 witnesses, 1290 distinct patterns; check639 1290 patterns; EQUAL (0 only independent, 0 only check639)
+RESULT: AGREE
+k=7: independent 136800 witnesses, 136800 distinct patterns; check639 136800 patterns; EQUAL (0 only independent, 0 only check639)
+RESULT: AGREE
+K=6: 1290 witnesses compared (all 1290 patterns covered), 0 value mismatches; max independent value 0.402545128312
+RESULT: AGREE
+K=7: 136800 witnesses compared (all 136800 patterns covered), 0 value mismatches; max independent value 0.400758933673
+RESULT: AGREE

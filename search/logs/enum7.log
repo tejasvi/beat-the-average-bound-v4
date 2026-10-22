@@ -1,0 +1,5 @@
+K=7: parents 1290, models 136800, LPs feas 1122101 cert 962580, max true 64/140 = 0.457143, time 149.5s
+
+real	2m31.383s
+user	43m41.510s
+sys	2m22.131s

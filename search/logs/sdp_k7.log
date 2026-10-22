@@ -1,0 +1,34 @@
+K=7 models 136800 plain 0.457143; blocks [12, 18, 51, 63, 36, 161, 129, 214, 203, 240, 166, 352, 408, 333, 305, 251, 188, 267, 175, 117, 274, 350, 304, 374, 436, 317, 318, 239, 250, 184, 205, 222, 246, 256, 256]; build 19.3s
+  round 1: pruned block sizes [12, 18, 51, 63, 36, 138, 101, 156, 112, 161, 66, 219, 192, 163, 120, 52, 31, 83, 33, 10, 208, 192, 67, 139, 178, 24, 40, 23, 19, 12, 89, 31, 17, 25, 77]
+it 1: active 3194, csdp 920.2s, lambda 0.400751, max over all 5.079153, min eig -8.43e-16
+Success: SDP solved
+Primal objective value: -4.0075105e-01 
+Dual objective value: -4.0075104e-01 
+Relative primal infeasibility: 1.16e-10 
+Relative dual infeasibility: 4.39e-11 
+Real Relative Gap: 7.69e-09 
+XZ Relative Gap: 7.80e-09 
+DIMACS error measures: 1.17e-10 0.00e+00 2.39e-10 0.00e+00 7.69e-09 7.80e-09
+  round 2: pruned block sizes [12, 18, 51, 63, 36, 156, 116, 186, 152, 201, 84, 274, 233, 168, 162, 70, 32, 192, 97, 30, 236, 230, 110, 177, 228, 46, 47, 87, 65, 56, 120, 39, 48, 60, 90]
+it 2: active 4018, csdp 1462.9s, lambda 0.400759, max over all 0.569745, min eig -1.96e-16
+Success: SDP solved
+Primal objective value: -4.0075893e-01 
+Dual objective value: -4.0075892e-01 
+Relative primal infeasibility: 2.78e-10 
+Relative dual infeasibility: 3.83e-11 
+Real Relative Gap: 7.03e-09 
+XZ Relative Gap: 6.73e-09 
+DIMACS error measures: 2.80e-10 0.00e+00 2.15e-10 0.00e+00 7.03e-09 6.73e-09
+  round 3: pruned block sizes [12, 18, 51, 63, 36, 157, 116, 188, 157, 211, 95, 283, 242, 171, 185, 74, 36, 193, 97, 31, 236, 232, 119, 179, 228, 53, 48, 88, 65, 58, 120, 40, 57, 67, 92]
+it 3: active 4145, csdp 1587.2s, lambda 0.400759, max over all 0.406454, min eig -1.02e-16
+Success: SDP solved
+Primal objective value: -4.0075893e-01 
+Dual objective value: -4.0075892e-01 
+Relative primal infeasibility: 3.41e-10 
+Relative dual infeasibility: 5.33e-11 
+Real Relative Gap: 6.83e-09 
+XZ Relative Gap: 6.55e-09 
+DIMACS error measures: 3.43e-10 0.00e+00 3.00e-10 0.00e+00 6.83e-09 6.55e-09
+  round 4: pruned block sizes [12, 18, 51, 63, 36, 158, 116, 188, 157, 211, 95, 283, 242, 171, 185, 74, 36, 193, 97, 31, 237, 232, 121, 181, 228, 53, 48, 88, 65, 58, 120, 40, 57, 67, 92]
+it 4: active 4146, csdp 1300.9s, lambda 0.400759, max over all 0.400759, min eig -2.08e-16
+final: bound (numerical) 0.400759, total 5298.4s

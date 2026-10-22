@@ -1,0 +1,11 @@
+$ python3 -I -B checker/check639_k8.py cert/cert_k8_04006983.json cert/trees 24
+certificate: K=8, lower blocks 35, (6,7) blocks 596, claimed 4006983/10000000 = 0.400698300, excluded patterns listed 2
+  k=4: 3 patterns, 3 Gordan certificates verified
+  k=5: 30 patterns, 66 Gordan certificates verified
+  k=6: 1290 patterns, 4528 Gordan certificates verified
+  k=7: 136800 patterns, 962580 Gordan certificates verified
+  f7: max 0.477057448
+consistent tuples: 45319744; max value among tuples not above the claim 2748827344150582759515148560018116288661293/6860092517126119423421632085824447142952960 = 0.400698290481; above the claim: 2 (max 0.476472202801)
+all 2 tuples above the claim are excluded by verified Gordan certificates
+RESULT: PASS C_6.39 <= 4006983/10000000 = 0.400698300
+wall-clock 278.87 s, user 1088.85 s, exit 0

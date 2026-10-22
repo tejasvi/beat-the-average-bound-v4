@@ -1,0 +1,20 @@
+$ python3 -I k9/audit639.py k9 cert/cert_k9_040069634.json cert/trees 32      (in an empty work directory)
+01:46:45   trees k=4: 3 patterns, 3 Gordan certificates verified
+01:46:45   trees k=5: 30 patterns, 66 Gordan certificates verified
+01:46:45   trees k=6: 1290 patterns, 4528 Gordan certificates verified
+01:46:49   trees k=7: 136800 patterns, 962580 Gordan certificates verified
+01:46:49 mode k9: 7-list 136800 patterns
+01:46:49 K=9: lower 35, mid 1023, top 360 blocks
+01:47:12 f7 done: max 0.489299368668
+01:49:15 mid flags skipped (pattern not in the 7-list): 0; LL has 140 bits
+01:49:49 stage 1: 45319744 consistent 8-tuples; max f8 among those not above the cap 0.4007963307454; above the cap: 29, of which without a valid exclusion: 0
+01:49:50 |S| = 251; top flags skipped 0; core 458
+01:49:50 stage 2: 174 9-tuples over S; max not above claim 0.4006963371345768; above the claim 0
+01:50:02 stage 3: 330265 9-tuples with >= 2 core restrictions; max not above claim 0.4006963371345768; above the claim 19; doubly anchored sets 237496
+01:50:02 9-level: 330439 evaluated (stage 2 174 + stage 3 330265); max not above claim 15271188577870862284255253878115323578653/38111625095145107907897956032358039683072 = 0.4006963371345768; distinct above claim 19, without valid exclusion 0
+01:50:02 RESULT k9: PASS C_6.39 <= 20034817/50000000 = 0.4006963400 (198 s)
+wall-clock 197.799 s, exit 0
+$ python3 -I k9/lemma6_check.py cert/cert_k9_040069634.json cert/trees 200      (same directory)
+8-level: 200 random consistent 8-tuples, max |hierarchical f8 - direct K=8 value| = 0
+9-level: 27 9-tuples (19 high + samples over S), max |hierarchical val9 - direct K=9 value| = 0
+wall-clock 280.049 s, exit 0

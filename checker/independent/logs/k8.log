@@ -1,0 +1,14 @@
+35 lower blocks [(1, 4), (2, 4), (4, 5), (5, 6)]
+K=7, 35 blocks, sizes [12, 18, 51, 63, 36, 153, 109, 184, 148, 217, 117, 266, 217, 189, 190, 96, 40, 159, 48, 17, 194, 198, 150, 126, 204, 53, 47, 44, 48, 27, 88, 46, 57, 58, 86], claimed 4006983/10000000 (1 s setup)
+max over 136800 witness configurations: 11688065103099996640790354509024782159749/24500330418307569369362971735087311224832 = 0.477057447942 (#136799, witness [1048576, 2097152, 5242880, 6291456, 22020096, 30408704, 31457280])
+top: ['0.477057447942', '0.472615797582', '0.470826868216', '0.438310437168'] min: 0.148393  within 1e-8 of max: 1
+claimed 4006983/10000000 = 0.4006983 FAIL (25 s)
+setup 27 s: 136800 7-models, 596 (6,7) blocks, 17206 (model, position) flag hits
+join: 45319744 candidate 8-patterns; digest 8322a762f1b77fc1; 161 s
+max value among patterns not above the claim: 2748827344150582759515148560018116288661293/6860092517126119423421632085824447142952960 = 0.400698290481 (parent witness index 126383)
+above the claim 4006983/10000000 = 0.4006983: 2 ['0.476472203', '0.471520335']
+pattern above the claim: value 0.476472202801; listed in excluded: True; certificate valid: True; my own LP/Gordan certificate: [[0, 9], [1, 7], [49, 3], [54, 2], [144, 1], [147, 3], [223, 4], [239, 4]]
+pattern above the claim: value 0.471520335340; listed in excluded: True; certificate valid: True; my own LP/Gordan certificate: [[48, 1], [49, 3], [54, 1], [88, 3], [119, 3], [147, 3], [223, 6], [243, 6]]
+candidate 8-patterns 45319744; max over those not above the claim 0.400698290481 (2748827344150582759515148560018116288661293/6860092517126119423421632085824447142952960)
+VERDICT: PASS claimed 4006983/10000000 = 0.4006983
+ALL DONE

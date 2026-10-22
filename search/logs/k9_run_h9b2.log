@@ -1,0 +1,5 @@
+resumed: core 471, A8 12375, A9 5887
+it 1: A8 12469, A9 5887, csdp 2583s, lambda9 0.4006963344, cap 0.4007963344, max f8 0.4838513858, 8-viol 102 (+92 realizable), |S| 342, (b)+(c) tuples 334790, max val9 0.4280823859, 9-viol 101 (+101 realizable); 2664s
+it 2: A8 12571, A9 5960, csdp 2577s, lambda9 0.4006963384, cap 0.4007963384, max f8 0.4637806408, 8-viol 9 (+5 realizable), |S| 259, (b)+(c) tuples 334790, max val9 0.4251514601, 9-viol 6 (+6 realizable); 5303s
+it 3: A8 12576, A9 5966, csdp 2618s, lambda9 0.4006963373, cap 0.4007963373, max f8 0.4623278079, 8-viol 0 (+0 realizable), |S| 248, (b)+(c) tuples 334789, max val9 0.4250139934, 9-viol 0 (+0 realizable); 7983s
+done

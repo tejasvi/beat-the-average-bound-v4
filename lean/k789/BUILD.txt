@@ -1,0 +1,62 @@
+Lean 4 proofs, with native_decide, of the bounds C <= 10019/25000 (certificate with 7 points), C <= 4006983/10000000
+(8 points) and C <= 20034817/50000000 (9 points) for Problem 6.39.
+Toolchain leanprover/lean4:v4.35.0-rc3, Mathlib v4.35.0-rc3 (lake-manifest.json).
+
+Finals: BeatAvg.N.upperBound_k7 / upperBoundRV_k7 / C639_le_k7 (BeatAvg/N/K7.lean), BeatAvg.N.upperBound_k8 /
+upperBoundRV_k8 / C639_le_k8 (BeatAvg/N/K8.lean) and BeatAvg.N.upperBound_k9 / upperBoundRV_k9 / C639_le_k9
+(BeatAvg/N/K9.lean). Expected axioms: propext, Classical.choice, Quot.sound plus exactly one native axiom each
+(BeatAvg.N.K7.check_ok._native.native_decide.ax_1_1, BeatAvg.N.K8.check_ok._native.native_decide.ax_1_1,
+BeatAvg.N.K9.check_ok._native.native_decide.ax_1_1).
+Generic soundness, standard axioms only: BeatAvg.Check.checkK9_sound (Check/K9e.lean; parts K9a-K9d, HierGen, Join),
+BeatAvg.Check.checkK9P_eq (Check/Par.lean: the parallel checker equals checkK9), BeatAvg.Check.checkK8_sound
+(Check/K8.lean), BeatAvg.Check.upperBound_of_directA / directOKA_sound (Check/DirectA.lean) and
+BeatAvg.flagMethodSound (Prob/FlagMethod.lean). checkK9_sound needs levels.length = 4 (rfl) and enumOK 6/7/8/9,
+checkK8_sound the same with enumOK 6/7/8 (K/Enum.lean, decide +kernel, no axioms).
+
+The data modules BeatAvg/Data/K7.lean, BeatAvg/Data/K8/Trees.lean, BeatAvg/Data/K8/Blocks.lean and
+BeatAvg/Data/K9/Blocks.lean are in lean_data.tar.xz in the supplement record. Unpack it in this directory
+(tar -xJf lean_data.tar.xz); then `sha256sum -c SHA256SUMS` checks every file. They can also be regenerated from the
+certificates (see "Data provenance" below).
+
+Do NOT lake build the N/*Check modules (Lake 4.35 builds no checker .so here, native_decide would run
+interpreted). Recipe:
+  lake exe cache get
+  lake build BeatAvg.Data.K8 BeatAvg.Check.K8 BeatAvg.Check.Par BeatAvg.Check.DirectA BeatAvg.K.Enum BeatAvg.Prob.NonVacuity
+  lake build BeatAvg.Core.Tuples:dynlib BeatAvg.Core.Rows:dynlib BeatAvg.Core.Tree:dynlib BeatAvg.Core.Direct:dynlib \
+             BeatAvg.Core.Chain:dynlib BeatAvg.Core.Hier:dynlib BeatAvg.Core.Hier9:dynlib BeatAvg.Core.Par:dynlib \
+             BeatAvg.Core.Hier9P:dynlib BeatAvg.Core.DirectA:dynlib
+  LP=$(lake env printenv LEAN_PATH); D=$PWD/.lake/build/lib/lean; O=$D/BeatAvg
+  mkdir -p $O/N $O/Data/K9
+  DL=""; for m in Tuples Rows Tree Direct Chain Hier Hier9 Par Hier9P DirectA; do DL="$DL --load-dynlib=$D/BeatAvg_BeatAvg_Core_$m.so"; done
+  DL8=""; for m in Tuples Rows Tree Direct Chain Hier; do DL8="$DL8 --load-dynlib=$D/BeatAvg_BeatAvg_Core_$m.so"; done
+  for M in Data/K7 Data/K9/Blocks Data/K9/Extra Data/K9; do LEAN_PATH=$LP lean -o $O/$M.olean -i $O/$M.ilean BeatAvg/$M.lean; done
+  LEAN_PATH=$LP lean $DL -o $O/N/K7Check.olean -i $O/N/K7Check.ilean BeatAvg/N/K7Check.lean
+  LEAN_PATH=$LP lean $DL8 -o $O/N/K8Check.olean -i $O/N/K8Check.ilean BeatAvg/N/K8Check.lean
+  LEAN_PATH=$LP LEAN_NUM_THREADS=96 lean $DL -o $O/N/K9Check.olean -i $O/N/K9Check.ilean BeatAvg/N/K9Check.lean
+  for M in K7 K8 K9; do LEAN_PATH=$LP lean -o $O/N/$M.olean -i $O/N/$M.ilean BeatAvg/N/$M.lean; done
+  printf 'import BeatAvg.N.K7\nimport BeatAvg.N.K8\nimport BeatAvg.N.K9\n#print axioms BeatAvg.N.upperBound_k7\n#print axioms BeatAvg.N.upperBound_k8\n#print axioms BeatAvg.N.upperBound_k9\n' > ax.lean
+  LEAN_PATH=$LP lean ax.lean
+(Data/K9/Blocks: 4:55, 4.3 GB; it is written as concatenations of definitions of at most 128 blocks.)
+
+Our runs (a server with 96 virtual CPUs): Data.K8 14:19 (Trees 856 s, Blocks 200 s); N/K7Check 7:46 wall
+(single-threaded, directOKA); N/K8Check 1:15:07 wall (single-threaded), 2.0 GB; N/K9Check 9:37 wall, 27,112 CPU-s,
+3.0 GB with LEAN_NUM_THREADS=96 (checkK9P evaluates the Q tables, f7, the tree levels, the join of 8-tuples and the
+stages 2-3 in Task.spawn tasks; Task.spawn is logically ⟨f ()⟩, so checkK9P = checkK9 is proved by simp + rfl).
+With fewer threads the k = 9 check takes proportionally longer (about 7.5 CPU-hours).
+
+Data provenance (none of it is trusted; the checks recompute or verify everything). TREEDIR holds trees_4.json,
+trees_5.json, trees_6.json and trees_7.json of cert/trees in the repository, decompressed (sha256 56173f42…,
+7d7100cf…, b35f94b0…, 31a5573e…).
+- Data/K7.lean = `python3 -I tools/export_direct.py cert_k7_040076.json TREEDIR 7 K7 BeatAvg/Data/K7.lean
+  BeatAvg.Data.K8.Trees` (certificate cert/cert_k7_040076.json of the repository, sha256 b36e37af…; its trees
+  decompress to the same files as TREEDIR, so `levels` is BeatAvg.Data.K8.levels).
+- Data/K8.lean, Data/K8/Trees.lean and Data/K8/Blocks.lean = `python3 -I tools/export_hier.py cert_k8_04006983.json
+  TREEDIR K8 BeatAvg/Data` (no CHUNK argument; certificate cert_k8_04006983.json of the supplement record, sha256
+  39210ff1…).
+- Data/K9/Blocks.lean = `python3 -I tools/export_hier.py cert_k9_040069634.json TREEDIR K9 OUTDIR 128`
+  (certificate cert_k9_040069634.json of the supplement record, sha256 7e81ddf1…; the Trees.lean it also writes
+  equals Data/K8/Trees.lean up to the namespace, so it is not used).
+- Data/K9/Extra.lean (the lists S and core) = output of tools/k9toolP.lean (BeatAvg.Check.k9genP, run natively with
+  the Core dynlibs, 3:41 wall): |S| = 251, core 458, matching the Python checker's log.
+- Core/Hier9P.lean is generated from Core/Hier9.lean by tools/mk_hier9p.py with the two .part files, which it reads
+  from scratch/gen/: `mkdir -p scratch/gen && cp tools/*.part scratch/gen/ && python3 -I tools/mk_hier9p.py .`

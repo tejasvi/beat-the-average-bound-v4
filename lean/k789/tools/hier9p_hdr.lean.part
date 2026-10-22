@@ -1,0 +1,15 @@
+import BeatAvg.Core.Hier9
+import BeatAvg.Core.Par
+
+/-!
+# The check with 9 points, evaluated with parallel tasks (core Lean only)
+
+`checkK9P` is `checkK9` with the Q tables, the values `f7`, the trees of each level, the join of 8-tuples (by pieces of
+parent numbers) and the stages 2 and 3 evaluated in parallel tasks; `checkK9P_eq` (BeatAvg.Check.Par) shows the two
+functions are equal. `k9genP` is the parallel generator of the lists `S` and `core`.
+-/
+
+namespace BeatAvg.Check
+
+open Std
+

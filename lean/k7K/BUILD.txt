@@ -1,0 +1,72 @@
+Track 639, k = 7 (C <= 10019/25000), K track: kernel only (no native_decide, no Lean.ofReduceBool, no
+implemented_by/extern in the checked definitions, no added axioms). Sources frozen 2026-10-21.
+Toolchain leanprover/lean4:v4.35.0-rc3, Mathlib v4.35.0-rc3 (lake-manifest.json); .lake/packages as for k = 6.
+
+Finals (BeatAvg/K/K7.lean): BeatAvg.K.upperBound_k7 : UpperBound (10019 / 25000), BeatAvg.K.upperBoundRV_k7,
+BeatAvg.K.C639_le_k7 : C639 ≤ 10019 / 25000. Axioms (run/k7K_axioms.txt): propext, Classical.choice, Quot.sound.
+
+Structure
+- Soundness: BeatAvg.Check.k7K_sound (Check/K7K2.lean, with Check/K7K.lean and K/K7Lit.lean): checks of a kernel
+  evaluator over tables (Core/KTab.lean, Core/K7K.lean; tables Data/K7K.lean) imply the hypotheses of the flag method
+  for the certificate Data/K7.lean (the certificate of the N track). Matrix rows are checked from packed term vectors:
+  BeatAvg.Check.qrowP_sound (Check/KPack.lean; definitions Core/KPack.lean) gives qrowOK from qrowP.
+- Computations: the theorems of BeatAvg/K/K7/*.lean ("shards", each proved by `decide +kernel`), core Lean only:
+  every shard imports BeatAvg.K.K7.Defs and BeatAvg.K.Split (P shards: BeatAvg.Core.KPack instead of K.Split), whose
+  import closure is core Lean (Core/*, Data/K7.lean, Data/K7K.lean, Data/K8/Trees.lean; no Mathlib). Inside a shard
+  every item is its own theorem, so the kernel's caches are freed between declarations.
+- Shards (511, plus BeatAvg/K/K7/Defs.lean with the names): Pre (tree chain to level 6, parents of level 7, block shapes, 6-point values of the lower blocks,
+  sortedness of the 6-pattern table, the (1,4) table), Top (top-flag lists of the 6-patterns, sound and complete),
+  F0-F64 (the 1,290 values f6 = valNum at 6 points, 20 per shard), P0-P29 (all rows of the matrix table of each of the
+  30 (5,6) blocks against Qint: qrowP T top b 0 N_b 160 42), R0-R413 (the 1,290 level-7 tree records: per record the
+  walk treeK7OK and its leaves 16 per theorem, leavesK7OK = value bound of each 7-pattern, joined by recK7_of).
+- Assembly (BeatAvg/K/K7.lean, Mathlib): all_f6 (all_of_chunks), all_recs (recsK7OK_add chain with explicit
+  arguments, then nrecs), all_q (q_b := qrowP_sound p_b), then k7K_sound and the flag-method theorems.
+- Generation: `python3 tools/gen_k7_shards2.py tools/k7_nl.txt 16 400 1290 20 30 10 158,116,188,157,211,95,283,242,
+  171,185,74,36,193,97,31,237,232,121,181,228,53,48,88,65,58,120,40,57,67,92` writes BeatAvg/K/K7/*.lean,
+  BeatAvg/K/K7/costs.txt (estimated seconds per shard, scheduling only) and BeatAvg/K/K7.lean. tools/k7_nl.txt =
+  `python3 -I tools/k7_nl.py BeatAvg/Data/K8/Trees.lean` (leaf counts of the level-7 records; they only size the
+  shards); the block sizes are the flag counts of the (5,6) blocks (checked by the qlen_b theorems).
+
+Build (from the project root; JOBS = number of cores; per-shard time and memory: run/k7K_run_final.txt)
+
+  lake build BeatAvg.Check.K7K2 BeatAvg.Check.KPack BeatAvg.K.Enum BeatAvg.K.K7Lit BeatAvg.Prob.NonVacuity \
+             BeatAvg.K.Split BeatAvg.Core.KPack BeatAvg.K.K7.Defs
+  SHARD_MEM_GB=64 SHARD_THREADS=1 python3 tools/run_shards.py LOGDIR JOBS $(sort -k2 -n -r BeatAvg/K/K7/costs.txt | cut -d' ' -f1)
+  awk '$2 != 0' LOGDIR/summary.txt          # must print nothing (exit status of every shard 0)
+  LP=$(lake env printenv LEAN_PATH); O=$PWD/.lake/build/lib/lean/BeatAvg; mkdir -p $O/K
+  LEAN_PATH=$LP lean -o $O/K/K7.olean -i $O/K/K7.ilean BeatAvg/K/K7.lean
+  printf 'import BeatAvg.K.K7\n#print axioms BeatAvg.K.upperBound_k7\n#print axioms BeatAvg.K.upperBoundRV_k7\n#print axioms BeatAvg.K.C639_le_k7\n' > ax.lean
+  LEAN_PATH=$LP lean ax.lean
+
+run_shards.py compiles each shard with `lean -j1 -o … -i …` under /usr/bin/time -v with an address-space cap
+(RLIMIT_AS = SHARD_MEM_GB). Without -j1 Lean starts one worker thread per core in every process; with 96 processes on
+a 96-core machine thread creation failed ("failed to create thread: Resource temporarily unavailable"). Do not `lake build BeatAvg.K.K7`: it would compile the 511 shards with one thread per
+core each, in parallel, and recompile the shards compiled outside Lake. (`lake build BeatAvg`, the default target, also
+builds the N modules; not needed here.)
+
+Data provenance (nothing is trusted: the checks recompute or verify every entry that is used)
+- Data/K7.lean and Data/K8/Trees.lean: as in snapshot_k9 (audited): Data/K7.lean = `python3 -I tools/export_direct.py
+  cert_k7_040076.json TREEDIR 7 K7 BeatAvg/Data/K7.lean BeatAvg.Data.K8.Trees` (certificate W/repo/cert/cert_k7_040076.json,
+  sha256 b36e37af…), Data/K8/Trees.lean from the frozen trees (snapshot_k8 BUILD.txt).
+- Data/K7K.lean (kernel tables: sorted 6-patterns, f6 values, top-flag lists as a binary tree, matrix rows as binary
+  trees, the (1,4) tables) = output of tools/k7ktool.lean, run natively (it was at scratch/t/k7ktool.lean, hence the
+  header line of Data/K7K.lean):
+    lake build BeatAvg.Data.K7 BeatAvg.Core.Hier9 BeatAvg.Core.K7K
+    for m in Tuples Rows Tree Direct Chain Hier Hier9 KTab K7K; do lake build BeatAvg.Core.$m:dynlib; done
+    LP=$(lake env printenv LEAN_PATH); D=$PWD/.lake/build/lib/lean; DL=""
+    for m in Tuples Rows Tree Direct Chain Hier Hier9 KTab K7K; do DL="$DL --load-dynlib=$D/BeatAvg_BeatAvg_Core_$m.so"; done
+    LEAN_PATH=$LP lean $DL --run tools/k7ktool.lean OUT/K7K.lean      # ~2.5 min; n6 = 1290, wq = 135
+
+Our run (a server with 96 virtual CPUs and 614 GB, shards with `lean -j1`, 93-96 in parallel): P0-P29 in a first pass
+(06:42-07:45 PDT); Pre, Top, F0-F64 and R0-R413 in a final pass (10:21-10:55 PDT) after two performance fixes found on the
+way, neither of which changes what is checked:
+- the record chains carry explicit arguments (recK7_of (n := …), leavesK7OK_add (lo := …) (n := …) (m := …),
+  recsK7OK_succ (lo := …) (n := …)); with implicit arguments the elaborator unified `?n + ?m` with the leaf bound by
+  unfolding leavesK7OK and evaluating leaf checks, which cost up to half of a shard's time;
+- the tree walk reads tokens with nextTokS (K/Split.lean: the token state is matched against 0 / s + 1 before each read,
+  nextTokS_eq : nextTokS = nextTok by `cases s <;> rfl`). With nextTok the walk threads an unevaluated chain
+  ((s >>> 10) >>> 10) …, and for some records the kernel spent its time comparing such chains inside its whnf cache:
+  record 836's tree took 2,740 s with nextTok and 73.6 s with nextTokS (record 0: 89 s and 102 s).
+Totals: 511 shards, all exit 0, 45.2 CPU-h of user time (R 31.1, F 13.3, P 0.6, Pre and Top 0.1); the
+longest shard took 823 s (an F shard, 20 values f6), the largest RSS was 16.8 GiB (P6, the block with 283 flags);
+the assembly BeatAvg/K/K7.lean compiles in 10 s (6.7 GiB). Axioms: run/k7K_axioms.txt. Per-shard user time, wall time and maximum RSS: run/k7K_run_final.txt (schedule the slowest first).

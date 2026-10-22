@@ -1,0 +1,3 @@
+core 471 (unrealizable dropped 3), A8 4874, A9 517; 19s
+it 1: A8 4874, A9 517, csdp 254s, lambda9 0.4006959318, cap 0.4007959318, max f8 0.4846712422, 8-viol 15177 (+3625 realizable), |S| 15946, (b)+(c) tuples 13696849, max val9 4.7013580408, 9-viol 3278 (+2840 realizable); 352s
+it 2: A8 9904, A9 3357, csdp 2257s, lambda9 0.4006962601, cap 0.4007962601, max f8 1.0457996019, 8-viol 533 (+508 realizable), |S| 919, (b)+(c) tuples 13696849, max val9 2.8948823682, 9-viol 4285 (+2924 realizable); 2697s

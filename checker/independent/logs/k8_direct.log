@@ -1,0 +1,7 @@
+$ SAMPLE_EVERY=1500 python3 -I k8/indep_k8.py cert/cert_k8_04006983.json 24      (in a directory with models_7.json and f7.json)
+setup 29 s: 136800 7-models, 596 (6,7) blocks, 17206 (model, position) flag hits
+join: 45319744 candidate 8-patterns; digest 8322a762f1b77fc1; 103 s
+max value among patterns not above the claim: 2748827344150582759515148560018116288661293/6860092517126119423421632085824447142952960 = 0.400698290481 (parent witness index 126383)
+above the claim 4006983/10000000 = 0.4006983: 2 ['0.476472203', '0.471520335']
+$ python3 -I k8/direct8.py cert/cert_k8_04006983.json indep_k8_out.json 24
+30223 patterns (200 top, 30021 sampled, 2 above the claim): direct-definition value == Lemma 5.1 value for 30223; mismatches 0 []; max direct 0.476472202801; 16 s

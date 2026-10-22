@@ -1,0 +1,8 @@
+Lean 4 proofs of the bound C <= 201273/500000 (certificate with 6 points) for Problem 6.39, in two versions: N, with
+native_decide, and K, checked by the kernel alone (lakefile = the single-library version used for these builds).
+Packages: Mathlib v4.35.0-rc3 (c55e6e786f49, lake-manifest.json), toolchain leanprover/lean4:v4.35.0-rc3.
+Targets: N: `lake build BeatAvg.N.K6` (finals BeatAvg.N.upperBound_k6, BeatAvg.N.upperBoundRV_k6, BeatAvg.N.C639_le_k6).
+K: computational shards BeatAvg.K.K6.Pre, BeatAvg.K.K6.C0 … BeatAvg.K.K6.C64 (core-only; each ≤ 111 s, ≤ 12.3 GB), then
+BeatAvg.K.K6 (finals BeatAvg.K.upperBound_k6, BeatAvg.K.upperBoundRV_k6, BeatAvg.K.C639_le_k6). We built the shards outside
+Lake with tools/run_shards.py (36 in parallel), then the assembly; `lake build BeatAvg.K.K6` also works if memory allows.
+Data: BeatAvg/Data/K6.lean = `python3 -I tools/export_direct.py cert_k6_0402546.json(sha256 df878960…) trees(4-6) 6 K6 OUT`.

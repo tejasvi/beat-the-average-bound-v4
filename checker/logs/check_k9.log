@@ -1,0 +1,10 @@
+$ python3 -I -B checker/check639_k9.py cert/cert_k9_040069634.json cert/trees 32
+certificate K=9: lower 35, mid (6,7) 1023, top (7,8) 360 blocks; claimed 20034817/50000000 = 0.4006963400, cap 0.4007963400; excluded8 29, excluded9 19
+  k=4: 3 patterns, 3 Gordan certificates verified
+  k=5: 30 patterns, 66 Gordan certificates verified
+  k=6: 1290 patterns, 4528 Gordan certificates verified
+  k=7: 136800 patterns, 962580 Gordan certificates verified
+stage 1: 45319744 consistent 8-tuples; above cap 29 (unexcluded 0); |S| = 251; core 458; 218s
+stages 2-3: 330439 9-tuples checked; max among those not above the claim 0.4006963371345768; above the claim 19 (unexcluded 0); 251s
+RESULT: PASS C_6.39 <= 20034817/50000000 = 0.4006963400
+wall-clock 251.832 s, user 841.194 s, exit 0

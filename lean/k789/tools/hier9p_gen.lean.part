@@ -1,0 +1,70 @@
+
+/-- The tuples of the join with `p ∈ [lo, hi)` accepted by `keep` (as in `collect8`). -/
+def collect8R (D : Array (Array Nat)) (ch : HashMap Nat (Array Nat)) (keep : Array Nat → Bool) (lo hi : Nat) :
+    Array (Array Nat) := Id.run do
+  let mut out : Array (Array Nat) := #[]
+  for p in [lo:hi] do
+    let d := D.getD p #[]
+    for c0 in ch.getD (d.getD 0 0) #[] do
+      let e0 := D.getD c0 #[]
+      for c1 in ch.getD (d.getD 1 0) #[] do
+        let e1 := D.getD c1 #[]
+        if !(e0.getD 0 0 == e1.getD 0 0) then continue
+        for c2 in ch.getD (d.getD 2 0) #[] do
+          let e2 := D.getD c2 #[]
+          if !(e0.getD 1 0 == e2.getD 0 0 && e1.getD 1 0 == e2.getD 1 0) then continue
+          for c3 in ch.getD (d.getD 3 0) #[] do
+            let e3 := D.getD c3 #[]
+            if !(e0.getD 2 0 == e3.getD 0 0 && e1.getD 2 0 == e3.getD 1 0 && e2.getD 2 0 == e3.getD 2 0) then continue
+            for c4 in ch.getD (d.getD 4 0) #[] do
+              let e4 := D.getD c4 #[]
+              if !(e0.getD 3 0 == e4.getD 0 0 && e1.getD 3 0 == e4.getD 1 0 && e2.getD 3 0 == e4.getD 2 0 &&
+                e3.getD 3 0 == e4.getD 3 0) then continue
+              for c5 in ch.getD (d.getD 5 0) #[] do
+                let e5 := D.getD c5 #[]
+                if !(e0.getD 4 0 == e5.getD 0 0 && e1.getD 4 0 == e5.getD 1 0 && e2.getD 4 0 == e5.getD 2 0 &&
+                  e3.getD 4 0 == e5.getD 3 0 && e4.getD 4 0 == e5.getD 4 0) then continue
+                for c6 in ch.getD (d.getD 6 0) #[] do
+                  let e6 := D.getD c6 #[]
+                  if !(e0.getD 5 0 == e6.getD 0 0 && e1.getD 5 0 == e6.getD 1 0 && e2.getD 5 0 == e6.getD 2 0 &&
+                    e3.getD 5 0 == e6.getD 3 0 && e4.getD 5 0 == e6.getD 4 0 && e5.getD 5 0 == e6.getD 5 0) then
+                    continue
+                  let R := #[c0, c1, c2, c3, c4, c5, c6, p]
+                  if keep R then out := out.push R
+  return out
+
+/-- `collect8` in parallel pieces of 256 parents. -/
+def collect8P (D : Array (Array Nat)) (ch : HashMap Nat (Array Nat)) (keep : Array Nat → Bool) : Array (Array Nat) :=
+  let ts := (List.range ((D.size + 255) / 256)).map fun c =>
+    Task.spawn fun _ => collect8R D ch keep (c * 256) (min ((c + 1) * 256) D.size)
+  ts.foldl (fun acc t => acc ++ t.get) #[]
+
+/-- `k9gen` with parallel tasks: the 8-tuples above θ, the core patterns, the number above the cap. -/
+def k9genP (levels : List (List TreeRec)) (lower mid top : List DBlock) (excl8 : List (Nat × List (Nat × Nat)))
+    (lamN lamD capN capD den7 qscale : Nat) : Array (Array Nat) × Array (Nat × Array Nat) × Nat :=
+  let P := (chainList [0] levels).toArray
+  let lk := tupList 7
+  let pre := parMapL 0 (preA lk 7) lower
+  let f7 := parMapA 1023 (fun M => valNumA lk lower pre den7 qscale 7 M) P
+  let D := mkDel 7 P
+  let ch := mkByDel D 6
+  let id := mkId P
+  let top8 := mkTop 7 P.size id mid
+  let qt8 := (parMapL 0 DBlock.qarr mid).toArray
+  let exT8 := excl8.filterMap fun e => exclTuple P id e.1
+  let S8 := 56 * den7 * qscale
+  let thN : Int := 9 * (lamN : Int) * capD - 8 * (capN : Int) * lamD
+  let thD := lamD * capD
+  let T := collect8P D ch fun R =>
+    let v := f8num f7 top8 qt8 den7 qscale R
+    !exT8.contains R && (decide (v * thD > thN * S8) || decide (v * capD > (capN * S8 : Nat)))
+  let S := T.filter fun R => decide (f8num f7 top8 qt8 den7 qscale R * thD > thN * S8)
+  let bad := T.filter fun R => decide (f8num f7 top8 qt8 den7 qscale R * capD > (capN * S8 : Nat))
+  let core := (List.range top.length).foldl (fun acc blk =>
+    (List.range (top.getD blk dfltB).flags.length).foldl (fun acc i =>
+      let f := flagAt top blk i
+      match exclTuple P id f.1 with
+      | none => acc
+      | some R => if acc.any (fun e => e.1 == f.1) then acc else acc.push (f.1, R)) acc) #[]
+  (S, core, bad.size)
+

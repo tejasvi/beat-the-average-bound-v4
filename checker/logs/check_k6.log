@@ -1,0 +1,8 @@
+$ python3 -I -B checker/check639.py cert/cert_k6_0402546.json cert/trees 4
+certificate: K=6, blocks [3, 18, 12, 51, 63, 36], claimed 201273/500000 = 0.402546000
+  k=4: 3 patterns, 3 Gordan certificates verified
+  k=5: 30 patterns, 66 Gordan certificates verified
+  k=6: 1290 patterns, 4528 Gordan certificates verified
+max over 1290 patterns: 7838001769327109693986883165568029/19471113219505603606989361234575360 = 0.402545128312 (pattern #0)
+RESULT: PASS C_6.39 <= 201273/500000 = 0.402546000
+wall-clock 1.18 s, user 0.24 s, exit 0
